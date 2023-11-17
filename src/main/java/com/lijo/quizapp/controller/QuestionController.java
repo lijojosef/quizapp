@@ -2,9 +2,8 @@ package com.lijo.quizapp.controller;
 
 import com.lijo.quizapp.model.Question;
 import com.lijo.quizapp.service.QuestionService;
-import jakarta.websocket.server.PathParam;
-import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class QuestionController
     QuestionService questionService;
     // to get all the questions
     @GetMapping("allquestions")
-    public List<Question> getAllQuestions()
+    public ResponseEntity<List<Question>> getAllQuestions()
     {
 
         return questionService.getAllQuestions();
@@ -26,28 +25,28 @@ public class QuestionController
 
     // to get category wise result
     @GetMapping("category/{category}")
-    public List<Question> getQuestionsByCategory(@PathVariable String category)
+    public ResponseEntity<List<Question>> getQuestionsByCategory(@PathVariable String category)
     {
         return questionService.getQuestionsByCategory(category);
     }
 
     // to add records
     @PostMapping("add")
-    public String addQuestion(@RequestBody Question question)
+    public ResponseEntity<String> addQuestion(@RequestBody Question question)
     {
         return questionService.addQuestion(question);
     }
 
-    // delete and update controllers:
     // to delete records
     @DeleteMapping("delete/{aid}")
-    public String deleteQuestion(@PathVariable ("aid") int aid)
+    public ResponseEntity<String> deleteQuestion(@PathVariable ("aid") int aid)
     {
         return questionService.deleteQuestion(aid);
     }
 
+    // to update records
     @PutMapping("update/{aid}")
-    public String updateQuestion(@PathVariable ("aid") int aid, @RequestBody Question question)
+    public ResponseEntity<String> updateQuestion(@PathVariable ("aid") int aid, @RequestBody Question question)
     {
         questionService.deleteQuestion(aid);
         return questionService.addQuestion(question);
