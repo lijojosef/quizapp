@@ -46,10 +46,9 @@ public class QuestionController
 
     // to update records
     @PutMapping("update/{aid}")
-    public ResponseEntity<String> updateQuestion(@PathVariable ("aid") int aid, @RequestBody Question question)
+    public ResponseEntity<String> updateQuestion(@RequestBody Question question)
     {
-        questionService.deleteQuestion(aid);
-        return questionService.addQuestion(question);
+        return questionService.saveOrUpdateQuestion(question);
     }
 
 }
