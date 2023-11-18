@@ -22,8 +22,7 @@ public class QuestionService
         try
         {
             return new ResponseEntity<>(questionDao.findAll(), HttpStatus.OK);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -34,8 +33,7 @@ public class QuestionService
         try
         {
             return new ResponseEntity<>(questionDao.findByCategory(category),HttpStatus.OK);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -49,8 +47,7 @@ public class QuestionService
         {
             questionDao.save(question);
             return new ResponseEntity<>("success", HttpStatus.CREATED);
-        }
-        catch(Exception e)
+        } catch(Exception e)
         {
             e.printStackTrace();
         }
@@ -63,12 +60,24 @@ public class QuestionService
         {
             questionDao.deleteById(aid);
             return new ResponseEntity<>("success", HttpStatus.CREATED);
-        }
-        catch(Exception e)
+        } catch(Exception e)
         {
             e.printStackTrace();
         }
         return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
+       
+    }
 
+    public ResponseEntity<String> saveOrUpdateQuestion(Question question)
+    {
+        try
+        {
+            questionDao.save(question);
+            return new ResponseEntity<>("success", HttpStatus.OK);
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>("failed", HttpStatus.BAD_REQUEST);
     }
 }
